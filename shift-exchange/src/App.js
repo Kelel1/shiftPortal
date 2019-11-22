@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       Welcome to Shift Portal Exchange
-    </div>
+    </div>    
   )
 }
 
