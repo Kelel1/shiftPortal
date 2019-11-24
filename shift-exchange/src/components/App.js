@@ -1,26 +1,18 @@
+<<<<<<< HEAD:shift-exchange/src/components/App.js
 import React from 'react';
 import logo from '../styles/logo.svg';
 import '../styles/styles.scss';
+=======
+import React from 'react'
+import './App.css'
+>>>>>>> origin/development:shift-exchange/src/App.js
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <div>
+      Welcome to Shift Portal Exchange
+    </div>    
+  )
 }
 
 export default App;
