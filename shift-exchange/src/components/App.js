@@ -1,10 +1,11 @@
 import React from 'react'
+import { Container } from 'semantic-ui-react'
 
 const App = () => {
   return (
-    <div>
+    <Container>
       Welcome to Shift Portal Exchange
-    </div>    
+    </Container> 
   )
 }
 
