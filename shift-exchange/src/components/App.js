@@ -1,13 +1,15 @@
+
 import React from 'react';
 import logo from '../styles/logo.svg';
 import '../styles/styles.scss';
+import { Container } from 'semantic-ui-react'
 
-function App() {
+
+const App = () => {
   return (
-    <div>
-      <div>For Companies</div>
-      <div>For Employees</div>
-    </div>    
+    <Container>
+      Welcome to Shift Portal Exchange
+    </Container> 
   )
 }
 
