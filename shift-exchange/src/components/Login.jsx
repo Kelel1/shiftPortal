@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Register extends React.Component {
+class Login extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -12,11 +12,11 @@ class Register extends React.Component {
                 <form>
                     <input type='text'></input>
                     <input type='password'></input>
-                    <input type='submit' value='Register'></input>
+                    <input type='submit' value='Login'></input>
                 </form>
             </div>
         )
     }
 }
 
-export default Register;
+export default Login;

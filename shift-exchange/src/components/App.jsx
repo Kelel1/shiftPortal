@@ -1,15 +1,25 @@
 
 import React from 'react';
-import logo from '../styles/logo.svg';
 import '../styles/styles.scss';
 import { Container } from 'semantic-ui-react'
+import Register from './Register';
+import Login from './Login';
+import Nav from './Nav';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
 const App = () => {
   return (
-    <Container>
-      Welcome to Shift Portal Exchange
-    </Container> 
+    <Router>
+      <Container>
+        <Nav />
+        <Route path='/register' exact component={Register}></Route>
+        <Route path='/login' exact component={Login}></Route>
+        
+      </Container> 
+
+    </Router>
+    
   )
 }
 
