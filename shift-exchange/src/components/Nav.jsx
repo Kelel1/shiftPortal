@@ -11,7 +11,7 @@ class Nav extends React.Component {
         return (
             <div>
                 <nav>
-                    <ul>
+                    <ul className='nav-list'>
                         <Link to='/register'>
                             <li>
                                 Register

@@ -1,0 +1,12 @@
+nav {
+    // vw means viewport width
+    width: 100vw;
+    // background-color: #B0C4DE;
+}
+
+.nav-list li {
+    list-style-type: none;
+    display: inline;
+    margin: 0 2vw;
+    font-size: 3vh;
+}
