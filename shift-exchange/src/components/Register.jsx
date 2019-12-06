@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Form, Button } from 'semantic-ui-react'
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -9,11 +9,17 @@ class Register extends React.Component {
         
         return (
             <div>
-                <form>
-                    <input type='text'></input>
-                    <input type='password'></input>
-                    <input type='submit' value='Register'></input>
-                </form>
+                <Form>
+                    <Form.Field>
+                        <label> User ID</label>
+                        <input type='text'></input>
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Password (case sensitive)</label>
+                        <input type='password'></input>
+                    </Form.Field>
+                    <Button type='submit'>Register</Button>
+                </Form>
             </div>
         )
     }
