@@ -1,4 +1,5 @@
 import React from 'react';
+import Calendar from './Calendar'
 
 class Planner extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class Planner extends React.Component {
     render() {
         return (
             <div>
-                Planner!
+                <Calendar />
             </div>
 
         );
