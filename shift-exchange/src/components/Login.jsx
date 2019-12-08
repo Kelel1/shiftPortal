@@ -1,16 +1,22 @@
 import React from 'react';
 import { Form, Button } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
     }
 
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.history.push('/planner');
+    }
+
     render() {
         
         return (
             <div>
-                <Form>
+                <Form onSubmit={this.handleSubmit.bind(this)}>
                     <Form.Field>
                         <label> User ID</label>
                         <input type='text'></input>
@@ -26,4 +32,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
