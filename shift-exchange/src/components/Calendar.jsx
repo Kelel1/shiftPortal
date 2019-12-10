@@ -3,6 +3,10 @@ import React from 'react';
 class Calendar extends React.Component {
     constructor(props) {
         super(props);
+        this.days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        this.state = {
+
+        }
     }
 
     // use react.createelement to dynamically add elements in page
@@ -10,16 +14,28 @@ class Calendar extends React.Component {
     // {React.createElement('th', {}, 'created element')}
 
     populateDays() {
-        const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
         let tabledays = [];
-        for(let i in days) {
-            tabledays.push(React.createElement('td', {}, days[i]));
+        for(let i in this.days) {
+            tabledays.push(React.createElement('td', {}, this.days[i]));
         }
         return (
             tabledays
         );
     }
-    
+
+    getCurrentMonth() {
+        let x = new Date();
+        return x.getMonth();
+    }
+
+    //get # of weeks
+    // count 2 weeks straight off-the-bat. 1st week where first date of month is.
+    // 2nd week is where last date of month is.
+    // take 
+    getNumberOfWeeks() {
+
+
+    }
 
     render() {
         return (
