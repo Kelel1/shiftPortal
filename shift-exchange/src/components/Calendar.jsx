@@ -1,4 +1,6 @@
 import React from 'react';
+// need connect function to be able to connect to store from Provider
+import {connect} from 'react-redux';
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -70,4 +72,19 @@ class Calendar extends React.Component {
     }
 }
 
-export default Calendar;
+const mapStateToProps = (state) => {
+    return state.calendar;
+};
+  
+const mapDispatchToProps = (dispatch) => {
+    return {
+        storeCurrentMonth: (input) => {
+            dispatch(actions.addInput(input))
+        }
+    }
+};
+
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Calendar);
+
+export default Container;
