@@ -1,10 +1,12 @@
 import React from 'react';
 // need connect function to be able to connect to store from Provider
 import {connect} from 'react-redux';
+import { storeCurrentMonth } from '../actions/calendarActions';
 
 class Calendar extends React.Component {
     constructor(props) {
         super(props);
+        this.getCurrentMonth = this.getCurrentMonth.bind(this);
         this.days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
         this.months = [
             'January', 'February', 'March', 'April',
@@ -78,8 +80,8 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        storeCurrentMonth: (input) => {
-            dispatch(actions.addInput(input))
+        storeCurrentMonth: (month) => {
+            dispatch(storeCurrentMonth(month));
         }
     }
 };
