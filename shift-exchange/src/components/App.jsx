@@ -7,16 +7,10 @@ import Login from './Login';
 import Nav from './Nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Planner from './Planner';
-import { Provider } from 'react-redux';
-import store from '../store/store';
-
-const unsubscribe = store.subscribe( () => {
-  console.log('New state is ', store.getState());
-});
+import {connect} from 'react-redux';
 
 const App = () => {
-  return (
-    <Provider store={store}>
+  return (  
       <Router>
         <Container className='container'>    
           <Nav />
@@ -27,11 +21,10 @@ const App = () => {
           </Switch>   
         </Container>
       </Router>
-
-    </Provider>
-    
-    
+  
   )
 }
 
-export default App;
+const AppContainer = connect()(App);
+
+export default AppContainer;

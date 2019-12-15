@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 // import dashReducer from './dashReducer';
 // import loadingReducer from './loadingReducer';
 // import historyReducer from './historyReducer';
+import calendarReducer from './calendarReducer';
 
 export default combineReducers({
 //   auth: authReducer, // access state in container components using `this.props.auth`
