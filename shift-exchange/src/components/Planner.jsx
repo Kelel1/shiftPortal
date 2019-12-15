@@ -18,4 +18,6 @@ class Planner extends React.Component {
     }
 }
 
-export default Planner;
+const Container = connect()(Planner);
+
+export default Container;

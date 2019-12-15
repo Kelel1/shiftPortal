@@ -5,16 +5,15 @@ const initialState = {
 };
 
 // Actions are dispatched to this reducer...
-export default function (state = initialState, action) {
+const calendarReducer = (state = initialState, action) => {
     switch (action.type) {
       case STORE_CURRENT_MONTH:
         return {
-          ...state,
-          currentMonth: action.payload.currentMonth,
-          
+          currentMonth: action.payload
         };
       default:
         return state;
     }
 };
 
+export default calendarReducer;

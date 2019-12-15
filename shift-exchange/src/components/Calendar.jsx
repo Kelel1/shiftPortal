@@ -13,13 +13,12 @@ class Calendar extends React.Component {
             'May', 'June', 'July', 'August', 'September',
             'October', 'November', 'December'
         ];
-        this.state = {
-            currentMonth: 0,
-            firstDay: '',
-            lastDate: '',
-            lastDay: '',
-
-        }
+        // this.state = {
+        //     currentMonth: 0,
+        //     firstDay: '',
+        //     lastDate: '',
+        //     lastDay: ''
+        // };
     }
 
     // use react.createelement to dynamically add elements in page
@@ -27,6 +26,7 @@ class Calendar extends React.Component {
     // {React.createElement('th', {}, 'created element')}
 
     populateDays() {
+        console.log(this.props.state);
         let tabledays = [];
         for(let i in this.days) {
             tabledays.push(React.createElement('td', {}, this.days[i]));
@@ -38,7 +38,8 @@ class Calendar extends React.Component {
 
     getCurrentMonth() {
         let x = new Date();
-        this.setState({ currentMonth: x.getMonth()});
+        let y = x.getMonth();
+        this.props.storeCurrentMonthToState(y);
     }
 
     //get # of weeks
@@ -59,8 +60,8 @@ class Calendar extends React.Component {
                 Calendar!
                 <table>
                     <tr>
-                        <th colspan='7'>
-                            December
+                        <th colSpan='7'>
+                            {this.getCurrentMonth()}
                         </th>
                     </tr>
                     <tr>
@@ -80,7 +81,7 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        storeCurrentMonth: (month) => {
+        storeCurrentMonthToState: (month) => {
             dispatch(storeCurrentMonth(month));
         }
     }
