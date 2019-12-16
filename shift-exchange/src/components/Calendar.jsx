@@ -21,12 +21,16 @@ class Calendar extends React.Component {
         // };
     }
 
+    componentDidMount() {
+        this.getCurrentMonth();
+    }
+
     // use react.createelement to dynamically add elements in page
     // need to use this for # of weeks / tr
     // {React.createElement('th', {}, 'created element')}
 
     populateDays() {
-        console.log(this.props.state);
+        console.log('state here is ', this.props);
         let tabledays = [];
         for(let i in this.days) {
             tabledays.push(React.createElement('td', {}, this.days[i]));
@@ -61,7 +65,7 @@ class Calendar extends React.Component {
                 <table>
                     <tr>
                         <th colSpan='7'>
-                            {this.getCurrentMonth()}
+                            {this.months[this.props.currentMonth]}
                         </th>
                     </tr>
                     <tr>
@@ -76,6 +80,7 @@ class Calendar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('state in mapstatetoprops is ', state);
     return state.calendar;
 };
   
