@@ -1,7 +1,7 @@
 import React from 'react';
 // need connect function to be able to connect to store from Provider
 import {connect} from 'react-redux';
-import { storeCurrentMonth } from '../actions/calendarActions';
+import { storeCurrentMonth, storeCurrentYear } from '../actions/calendarActions';
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -13,16 +13,12 @@ class Calendar extends React.Component {
             'May', 'June', 'July', 'August', 'September',
             'October', 'November', 'December'
         ];
-        // this.state = {
-        //     currentMonth: 0,
-        //     firstDay: '',
-        //     lastDate: '',
-        //     lastDay: ''
-        // };
     }
 
     componentDidMount() {
         this.getCurrentMonth();
+        this.getCurrentYear();
+        this.getLastDate();
     }
 
     // use react.createelement to dynamically add elements in page
@@ -30,20 +26,49 @@ class Calendar extends React.Component {
     // {React.createElement('th', {}, 'created element')}
 
     populateDays() {
-        console.log('state here is ', this.props);
         let tabledays = [];
         for(let i in this.days) {
-            tabledays.push(React.createElement('td', {}, this.days[i]));
+            tabledays.push(React.createElement('td', {key: `${this.days[i]}-${i}` }, this.days[i]));
         }
         return (
             tabledays
         );
     }
 
+    populateDates() {
+
+    }
+
     getCurrentMonth() {
-        let x = new Date();
-        let y = x.getMonth();
-        this.props.storeCurrentMonthToState(y);
+        let data = this.props.currentMonth || new Date();
+        let month = data.getMonth();
+        this.props.storeCurrentMonthToState(month);
+    }
+
+    getCurrentYear() {
+        let data = this.props.currentMonth || new Date();
+        let year = data.getFullYear();
+        this.props.storeCurrentYearToState(year);
+
+    }
+
+    // last date of any given month is
+    // 1st date of next month - 1
+    // need current year
+    async getLastDate() {
+        console.log('currentmonth - ', this.props.currentMonth);
+        let nextMonth = this.props.currentMonth === 11 ? 0 : this.props.currentMonth + 1;
+        console.log('nextMonth - ',nextMonth);
+        let a = await (new Date(`${nextMonth + 1}/1/${this.props.currentYear}`));
+        console.log('a - ', a);
+        let data = await (new Date(a.setDate(0)));
+        console.log('data - ', data);
+        let lastDate = data.getDate();
+   
+    }
+
+    async getNextMonth() {
+        
     }
 
     //get # of weeks
@@ -61,16 +86,20 @@ class Calendar extends React.Component {
     render() {
         return (
             <div>
-                Calendar!
                 <table>
-                    <tr>
-                        <th colSpan='7'>
-                            {this.months[this.props.currentMonth]}
-                        </th>
-                    </tr>
-                    <tr>
-                        {this.populateDays()}
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th colSpan='7'>
+                                {this.months[this.props.currentMonth]}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {this.populateDays()}
+                        </tr>
+                    </tbody>
+                    
 
                 </table>
             </div>
@@ -80,7 +109,7 @@ class Calendar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('state in mapstatetoprops is ', state);
+    console.log('state in Calendar mapstatetoprops is ', state);
     return state.calendar;
 };
   
@@ -88,6 +117,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         storeCurrentMonthToState: (month) => {
             dispatch(storeCurrentMonth(month));
+        },
+        storeCurrentYearToState: (year) => {
+            dispatch(storeCurrentYear(year));
         }
     }
 };
