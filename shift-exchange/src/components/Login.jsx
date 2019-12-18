@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button } from 'semantic-ui-react'
-
+// Needs to be refractored to Administrator Login/Changed to SignUp
+// Create a separate Component for employee Login
 class Login extends React.Component {
     constructor(props) {
         super(props);
