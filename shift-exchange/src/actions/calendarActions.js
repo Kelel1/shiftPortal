@@ -1,7 +1,7 @@
 import { 
     STORE_CURRENT_MONTH,
     STORE_CURRENT_YEAR,
-    STORE_LAST_DATE
+    STORE_CURRENT_DATE
 } from './types';
 
 export const storeCurrentMonth = month => ({
@@ -14,7 +14,7 @@ export const storeCurrentYear = year => ({
     payload: year
 });
 
-export const storeLastDate = date => ({
-    type: STORE_LAST_DATE,
+export const storeCurrentDate = date => ({
+    type: STORE_CURRENT_DATE,
     payload: date
 });

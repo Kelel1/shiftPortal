@@ -1,7 +1,7 @@
 import React from 'react';
 // need connect function to be able to connect to store from Provider
 import {connect} from 'react-redux';
-import { storeCurrentMonth, storeCurrentYear, storeLastDate } from '../actions/calendarActions';
+import { storeCurrentMonth, storeCurrentYear, storeCurrentDate } from '../actions/calendarActions';
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -35,7 +35,24 @@ class Calendar extends React.Component {
         );
     }
 
+    // make nested array with the weeks in it
+    // [[week1],[week2], [week3], [week4]]
+    // where week1 = ['','','','1','2','3','4']
+    // when 1st of the month falls on a wednesday
+    // [tr,tr,tr,tr]
+    // tr = [td,td,td,td,td,td,td]
     populateDates() {
+        let allWeeks = [];
+        let week = [];
+        let i = 1; //first date
+        let lastDate = getLastDate();
+
+        // create elements inside week. always will have 7 tds.
+        week.push(React.createElement('td', {key: `${this.days[i]}-${i}` }, this.days[i]))
+        // while (i <= lastDate) {
+            
+        // }
+
 
     }
 
@@ -53,6 +70,13 @@ class Calendar extends React.Component {
         return year;
     }
 
+    getCurrentDate() {
+        let data = this.props.currentDate || new Date();
+        let date = data.getDate();
+        this.props.storeCurrentDateToState(date);
+        return date;
+    }
+
     // last date of any given month is
     // 1st date of next month - 1
     // need current year
@@ -65,7 +89,6 @@ class Calendar extends React.Component {
         // thus, 0 is january but 1/1 is january 1st in date format
         let nextMonthFullDate = (new Date(`${nextMonth + 1}/1/${currentYear}`));
         let lastDate =  (new Date(nextMonthFullDate.setDate(0))).getDate();
-        this.props.storeLastDateToState(lastDate);
         return lastDate;
     }
 
@@ -120,8 +143,8 @@ const mapDispatchToProps = (dispatch) => {
         storeCurrentYearToState: (year) => {
             dispatch(storeCurrentYear(year));
         },
-        storeLastDateToState: (date) => {
-            dispatch(storeLastDate(date));
+        storeCurrentDateToState: (date) => {
+            dispatch(storeCurrentDate(date));
         }
     }
 };
