@@ -1,4 +1,4 @@
-import { STORE_CURRENT_MONTH, STORE_CURRENT_YEAR, STORE_LAST_DATE } from '../actions/types';
+import { STORE_CURRENT_MONTH, STORE_CURRENT_YEAR, STORE_CURRENT_DATE } from '../actions/types';
 
 const initialState = {
     currentMonth: null,
@@ -19,7 +19,7 @@ const calendarReducer = (state = initialState, action) => {
           ...state,
           currentYear: action.payload
         };
-      case STORE_LAST_DATE: {
+      case STORE_CURRENT_DATE: {
         return {
           ...state,
           lastDate: action.payload
