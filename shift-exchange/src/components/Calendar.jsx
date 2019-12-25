@@ -45,7 +45,7 @@ class Calendar extends React.Component {
         let allWeeks = [];
         let week = [];
         let i = 1; //first date
-        let lastDate = getLastDate();
+        // let lastDate = getLastDate();
 
         // create elements inside week. always will have 7 tds.
         week.push(React.createElement('td', {key: `${this.days[i]}-${i}` }, this.days[i]))
