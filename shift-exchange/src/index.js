@@ -1,5 +1,6 @@
-import React from 'react';
+import React    from 'react';
 import ReactDOM from 'react-dom';
+import axios    from 'axios';
 
 import App from './components/App';
 import { Provider } from 'react-redux';
@@ -8,6 +9,9 @@ import store from './store/store';
 const unsubscribe = store.subscribe( () => {
   console.log('New state is ', store.getState());
 });
+
+const promise = axios.get('http://localhost:3001/');
+console.log(promise);
 
 ReactDOM.render(
     <Provider store={store}>
