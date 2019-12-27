@@ -18,7 +18,9 @@ class Calendar extends React.Component {
     componentDidMount() {
         this.getCurrentMonth();
         this.getCurrentYear();
-        this.getLastDate();
+        this.getLastFullDate();
+        this.getNumberOfWeeks();
+        this.populateDates();
     }
 
     // use react.createelement to dynamically add elements in page
@@ -44,35 +46,57 @@ class Calendar extends React.Component {
     populateDates() {
         let allWeeks = [];
         let week = [];
-        let i = 1; //first date
-        // let lastDate = getLastDate();
-
+        let dateNumber = 1; // first date
+        let weekNumber = 1; // first week
+        let dayNumber = 0; // first day
+        let dayCount = 6; // last day
+        let lastFullDate = this.getLastFullDate();
+        let lastDate = lastFullDate.getDate();
+        let weekCount = this.getNumberOfWeeks();
+        let firstDay = this.getFirstDay();
+        let tdCount = weekCount * 7;
+        let dateCount = 0;
         // create elements inside week. always will have 7 tds.
-        week.push(React.createElement('td', {key: `${this.days[i]}-${i}` }, this.days[i]))
-        // while (i <= lastDate) {
-            
-        // }
+        for(let i = 0; i <= tdCount; i++) {
+            let elem = React.createElement('td', {key: `td-${i}`},'')
+            if(i >= firstDay && i <= firstDay + lastDate - 1) {
+                elem = React.createElement('td', {key: `td-${i}`},dateNumber)
+                dateNumber++;
+            }
+            week.push(elem)
+        }
 
-
+        for(let i = weekNumber; i <= weekCount; i++) {
+            let elem = React.createElement('tr', {},
+            week[dateCount],
+            week[dateCount+1],
+            week[dateCount+2],
+            week[dateCount+3],
+            week[dateCount+4],
+            week[dateCount+5],
+            week[dateCount+6],
+            )
+            allWeeks.push(elem);
+            dateCount+=7;
+        }
+        console.log('allWeek ', allWeeks);
+        return allWeeks;
     }
 
     getCurrentMonth() {
-        let data = this.props.currentMonth || new Date();
-        let month = data.getMonth();
+        let month = this.props.currentMonth || (new Date()).getMonth();
         this.props.storeCurrentMonthToState(month);
         return month;
     }
 
     getCurrentYear() {
-        let data = this.props.currentYear || new Date();
-        let year = data.getFullYear();
+        let year = this.props.currentYear || (new Date()).getFullYear();
         this.props.storeCurrentYearToState(year);
         return year;
     }
 
     getCurrentDate() {
-        let data = this.props.currentDate || new Date();
-        let date = data.getDate();
+        let date = this.props.currentDate || (new Date()).getDate();
         this.props.storeCurrentDateToState(date);
         return date;
     }
@@ -80,16 +104,27 @@ class Calendar extends React.Component {
     // last date of any given month is
     // 1st date of next month - 1
     // need current year
-    getLastDate() {
+    getLastFullDate() {
         let currentMonth = this.props.currentMonth || this.getCurrentMonth();
-        let currentYear = this.props.currentYear || this.getCurrentYear();
+        let currentYear = currentMonth === 11 ? // if december, make it new year
+            (this.props.currentYear  || this.getCurrentYear()) + 1 
+            : (this.props.currentYear  || this.getCurrentYear());
         let nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
         // add 1 to nextMonth to get exact month
         // because months array is zero-based
         // thus, 0 is january but 1/1 is january 1st in date format
         let nextMonthFullDate = (new Date(`${nextMonth + 1}/1/${currentYear}`));
-        let lastDate =  (new Date(nextMonthFullDate.setDate(0))).getDate();
-        return lastDate;
+        let lastFullDate =  (new Date(nextMonthFullDate.setDate(0)));
+        return lastFullDate;
+    }
+
+    // get first day of the month
+    getFirstDay() {
+        let month = this.getCurrentMonth() + 1;
+        let currentYear = this.getCurrentYear();
+        let firstDate = (new Date(`${month}/1/${currentYear}`));
+        let firstDay = firstDate.getDay();
+        return firstDay;
     }
 
 
@@ -101,7 +136,15 @@ class Calendar extends React.Component {
     // after getting that date, look for the last date of the first week
     // then subtract that from the last date of 2nd-to-the-last week
     getNumberOfWeeks() {
-
+        let weekCount = 2;
+        let lastFullDate = this.getLastFullDate();
+        let lastDate = lastFullDate.getDate();
+        let lastDay = lastFullDate.getDay();
+        let a = lastDate - lastDay;
+        let firstDay = this.getFirstDay();
+        let b = 1 + (6 - firstDay);
+        weekCount += (a - b - 1)/7
+        return weekCount;
 
     }
 
@@ -120,6 +163,7 @@ class Calendar extends React.Component {
                         <tr>
                             {this.populateDays()}
                         </tr>
+                        {this.populateDates()}
                     </tbody>
                     
 
