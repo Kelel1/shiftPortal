@@ -46,16 +46,14 @@ class Calendar extends React.Component {
     populateDates() {
         let allWeeks = [];
         let week = [];
-        let dateNumber = 1; // first date
+        let dateNumber = 1; // date counter
         let weekNumber = 1; // first week
-        let dayNumber = 0; // first day
-        let dayCount = 6; // last day
         let lastFullDate = this.getLastFullDate();
         let lastDate = lastFullDate.getDate();
         let weekCount = this.getNumberOfWeeks();
         let firstDay = this.getFirstDay();
         let tdCount = weekCount * 7;
-        let dateCount = 0;
+        let dateCount = 0; //date counter
         // create elements inside week. always will have 7 tds.
         for(let i = 0; i <= tdCount; i++) {
             let elem = React.createElement('td', {key: `td-${i}`},'')
@@ -79,7 +77,6 @@ class Calendar extends React.Component {
             allWeeks.push(elem);
             dateCount+=7;
         }
-        console.log('allWeek ', allWeeks);
         return allWeeks;
     }
 
@@ -148,6 +145,13 @@ class Calendar extends React.Component {
 
     }
 
+    //next month and previous month
+    prevMonth() {
+        let month = this.props.currentMonth || (new Date()).getMonth();
+        month--;
+        this.props.storeCurrentMonthToState(month);
+    }
+
     render() {
         return (
             <div>
@@ -168,6 +172,8 @@ class Calendar extends React.Component {
                     
 
                 </table>
+                <button onClick={this.prevMonth}>Prev</button>
+                <button>Next</button>
             </div>
 
         );

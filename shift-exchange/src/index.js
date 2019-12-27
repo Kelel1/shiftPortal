@@ -10,8 +10,8 @@ const unsubscribe = store.subscribe( () => {
   console.log('New state is ', store.getState());
 });
 
-const promise = axios.get('http://localhost:3001/');
-console.log(promise);
+// const promise = axios.get('http://localhost:3001/');
+// console.log(promise);
 
 ReactDOM.render(
     <Provider store={store}>
