@@ -7,6 +7,15 @@ class Calendar extends React.Component {
     constructor(props) {
         super(props);
         this.getCurrentMonth = this.getCurrentMonth.bind(this);
+        this.getCurrentYear = this.getCurrentYear.bind(this);
+        this.getCurrentDate = this.getCurrentDate.bind(this);
+        this.getFirstDay = this.getFirstDay.bind(this);
+        this.getLastFullDate = this.getLastFullDate.bind(this);
+        this.getNumberOfWeeks = this.getNumberOfWeeks.bind(this);
+        this.populateDates = this.populateDates.bind(this);
+        this.populateDays = this.populateDays.bind(this);
+        this.prevMonth = this.prevMonth.bind(this);
+        this.nextMonth = this.nextMonth.bind(this);
         this.days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
         this.months = [
             'January', 'February', 'March', 'April',
@@ -81,20 +90,39 @@ class Calendar extends React.Component {
     }
 
     getCurrentMonth() {
-        let month = this.props.currentMonth || (new Date()).getMonth();
-        this.props.storeCurrentMonthToState(month);
+        let month;
+        if(this.props.currentMonth) {
+            month = this.props.currentMonth;
+        } else {
+            month = (new Date()).getMonth();
+            this.props.storeCurrentMonthToState(month);
+        }
         return month;
     }
 
     getCurrentYear() {
-        let year = this.props.currentYear || (new Date()).getFullYear();
-        this.props.storeCurrentYearToState(year);
+        let year;
+        if(this.props.currentYear) {
+            year = this.props.currentYear;
+        } else {
+            year = (new Date()).getFullYear();
+            this.props.storeCurrentYearToState(year);
+        }
+        // let year = this.props.currentYear || (new Date()).getFullYear();
+        // this.props.storeCurrentYearToState(year);
         return year;
     }
 
     getCurrentDate() {
-        let date = this.props.currentDate || (new Date()).getDate();
-        this.props.storeCurrentDateToState(date);
+        let date;
+        if(this.props.currentDate) {
+            date = this.props.currentDate;
+        } else {
+            date = (new Date()).getDate();
+            this.props.storeCurrentDateToState(date);
+        }
+        // let date = this.props.currentDate || (new Date()).getDate();
+        // this.props.storeCurrentDateToState(date);
         return date;
     }
 
@@ -142,13 +170,34 @@ class Calendar extends React.Component {
         let b = 1 + (6 - firstDay);
         weekCount += (a - b - 1)/7
         return weekCount;
-
     }
 
     //next month and previous month
     prevMonth() {
-        let month = this.props.currentMonth || (new Date()).getMonth();
-        month--;
+        let month = this.props.currentMonth;
+        let year = this.props.currentYear;
+        if (month === 0) {
+            month = 11;
+            year--;
+            this.props.storeCurrentYearToState(year);
+        } 
+        else {
+            month--;
+        }
+        this.props.storeCurrentMonthToState(month);
+    }
+
+    nextMonth() {
+        let month = this.props.currentMonth;
+        let year = this.props.currentYear;
+        if (month === 11) {
+            month = 0;
+            year++;
+            this.props.storeCurrentYearToState(year);
+        }
+        else {
+            month++;
+        } 
         this.props.storeCurrentMonthToState(month);
     }
 
@@ -159,7 +208,7 @@ class Calendar extends React.Component {
                     <thead>
                         <tr>
                             <th colSpan='7'>
-                                {this.months[this.props.currentMonth]}
+                                {this.months[this.props.currentMonth]} {this.props.currentYear}
                             </th>
                         </tr>
                     </thead>
@@ -173,7 +222,7 @@ class Calendar extends React.Component {
 
                 </table>
                 <button onClick={this.prevMonth}>Prev</button>
-                <button>Next</button>
+                <button onClick={this.nextMonth}>Next</button>
             </div>
 
         );
