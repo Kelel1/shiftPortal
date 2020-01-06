@@ -30,6 +30,12 @@ class Calendar extends React.Component {
         this.getLastFullDate();
         this.getNumberOfWeeks();
         this.populateDates();
+        this.initFunctions();
+    }
+
+    // run these functions when component is loaded
+    initFunctions() {
+
     }
 
     // use react.createelement to dynamically add elements in page
@@ -200,10 +206,27 @@ class Calendar extends React.Component {
         } 
         this.props.storeCurrentMonthToState(month);
     }
+        
+    // add prevMonth, nextMonth to mousedown, touchstart events
+    holdBtns() {
+        const events = ['mousedown', 'touchstart'];
+        const prevMonth = document.getElementById('prev-month');
+        const nextMonth = document.getElementById('next-month');
+        const holdThis = () => {
+            
+        }
+        events.forEach( event => {
+            prevMonth.addEventListener(event, holdThis);
+            nextMonth.addEventListener(event, holdThis);
+        });
+    }
+
 
     render() {
         return (
             <div>
+                <button id='prev-month' onClick={this.prevMonth}>Prev</button>
+                <button id='next-month' onClick={this.nextMonth}>Next</button>
                 <table>
                     <thead>
                         <tr>
@@ -218,11 +241,7 @@ class Calendar extends React.Component {
                         </tr>
                         {this.populateDates()}
                     </tbody>
-                    
-
                 </table>
-                <button onClick={this.prevMonth}>Prev</button>
-                <button onClick={this.nextMonth}>Next</button>
             </div>
 
         );
